@@ -3,11 +3,15 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Taco Cloud</title>
-  <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
 <h1>Design your taco!</h1>
 <img th:src="@{/images/TacoCloud.png}"/>
+
+<form method="POST" th:action="@{/logout}" id="logoutForm">
+  <input type="submit" value="Logout"/>
+</form>
+
 <form method="POST" th:object="${taco}">
   <div class="grid">
     <div class="ingredient-group" id="wraps">

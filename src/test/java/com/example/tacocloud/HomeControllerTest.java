@@ -8,10 +8,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.example.tacocloud.repository.IngredientRepository;
 import com.example.tacocloud.repository.OrderRepository;
+import com.example.tacocloud.repository.UsersRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest   // <1>
@@ -22,10 +25,18 @@ public class HomeControllerTest {
 
     @MockBean
     private IngredientRepository ingredientRepository;
+
     @MockBean
     private OrderRepository orderRepository;
 
+    @MockBean
+    private UsersRepository userRepository;
+
+    @MockBean
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Test
+    @WithMockUser
     public void testHomePage() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())

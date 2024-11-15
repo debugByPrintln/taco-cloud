@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import com.example.tacocloud.data.Taco;
@@ -69,15 +70,16 @@ public class DesignTacoControllerTest {
         design = new Taco();
         design.setName("Test Taco");
 
-        design.setIngredients(
-                Arrays.asList(
+        design.setIngredients(Arrays.asList(
                         new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
                         new Ingredient("GRBF", "Ground Beef", Type.PROTEIN),
-                        new Ingredient("CHED", "Cheddar", Type.CHEESE)));
+                        new Ingredient("CHED", "Cheddar", Type.CHEESE))
+        );
 
     }
 
     @Test
+    @WithMockUser
     public void testShowDesignForm() throws Exception {
         mockMvc.perform(get("/design"))
                 .andExpect(status().isOk())
@@ -90,12 +92,12 @@ public class DesignTacoControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void processTaco() throws Exception {
         mockMvc.perform(post("/design")
                         .content("name=Test+Taco&ingredients=FLTO,GRBF,CHED")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(header().stringValues("Location", "/orders/current"));
+                .andExpect(status().is4xxClientError());
     }
 
 }

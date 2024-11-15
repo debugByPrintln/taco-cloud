@@ -1,4 +1,4 @@
-package com.example.tacocloud.controller;
+package com.example.tacocloud.configuration;
 
 import com.example.tacocloud.data.Ingredient;
 import com.example.tacocloud.data.Ingredient.Type;
@@ -10,10 +10,12 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfiguration implements WebMvcConfigurer {
+
+    // Обьявляет простые контроллеры представления для страницы входа
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/login");
     }
 
     @Bean
