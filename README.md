@@ -1,2 +1,3 @@
-taco-cloud
-End of chapter 3 with Spring JPA and H2 DB
+# Spring in Action by Craig Walls
+
+Reading book and doing some exercises 
